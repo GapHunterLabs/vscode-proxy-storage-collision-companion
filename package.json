@@ -1,0 +1,49 @@
+{
+  "name": "proxy-storage-collision-companion",
+  "displayName": "Proxy Storage Collision Companion",
+  "description": "Diffs a Solidity contract's state-variable layout against git HEAD and flags storage-slot collisions -- reordered/removed/retyped variables in an upgradeable proxy implementation. No data leaves your editor.",
+  "version": "0.1.0",
+  "publisher": "GapHunterLabs",
+  "icon": "images/icon.png",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Linters"
+  ],
+  "keywords": [
+    "solidity",    "smart-contracts",    "upgradeable",    "security"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GapHunterLabs/vscode-proxy-storage-collision-companion.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GapHunterLabs/vscode-proxy-storage-collision-companion/issues"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "proxyStorageCollisionCompanion.check",
+        "title": "Proxy Storage Collision Companion: Check for Storage Collisions"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -w -p ./",
+    "test": "tsc -p ./ && node --test \"out/test/**/*.test.js\""
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.2"
+  }
+}
