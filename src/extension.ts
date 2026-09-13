@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { extractStateVariables, findStorageCollisions } from './storageLayout';
+import { recordHit } from './reviewPrompt';
 
 const execFileAsync = promisify(execFile);
 
@@ -16,7 +17,7 @@ async function readGitBaseline(workspaceRoot: string, relativePath: string): Pro
   }
 }
 
-async function checkStorageCollisions(): Promise<void> {
+async function checkStorageCollisions(context: vscode.ExtensionContext): Promise<void> {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
     void vscode.window.showErrorMessage('Proxy Storage Collision Companion: open a .sol file first.');
@@ -56,6 +57,9 @@ async function checkStorageCollisions(): Promise<void> {
     return diagnostic;
   });
   diagnostics.set(document.uri, diags);
+  // A real, non-empty check result -- never reached for the "no
+  // collisions" or "no git baseline" branches above.
+  recordHit(context);
 }
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -63,7 +67,7 @@ export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(diagnostics);
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('proxyStorageCollisionCompanion.check', () => void checkStorageCollisions()),
+    vscode.commands.registerCommand('proxyStorageCollisionCompanion.check', () => void checkStorageCollisions(context)),
     vscode.workspace.onDidCloseTextDocument((document) => diagnostics.delete(document.uri)),
   );
 }
