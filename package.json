@@ -2,7 +2,7 @@
   "name": "proxy-storage-collision-companion",
   "displayName": "Proxy Storage Collision Companion",
   "description": "Diffs a Solidity contract's state-variable layout against git HEAD and flags storage-slot collisions -- reordered/removed/retyped variables in an upgradeable proxy implementation. No data leaves your editor.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "GapHunterLabs",
   "icon": "images/icon.png",
   "license": "Apache-2.0",
